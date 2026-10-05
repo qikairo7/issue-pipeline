@@ -1,3 +1,5 @@
+<sub>🌐 <b>中文</b> · <a href="README.en.md">English</a></sub>
+
 <div align="center">
 
 # issue-pipeline
@@ -13,6 +15,12 @@
 [看效果](#效果示例) · [安装](#快速开始) · [触发方式](#触发方式) · [它和同类有什么不同](#它和同类有什么不同) · [安全边界](#安全边界)
 
 </div>
+
+---
+
+![真实安装与自检回放](assets/demo-install.png)
+
+<sub>真实运行回放：公网 `npx skills add` 安装 → `git clone` → `bash scripts/check.sh`，6 项自检全过。非演示数据。</sub>
 
 ---
 
