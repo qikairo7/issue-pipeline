@@ -12,7 +12,7 @@
 
 **把一个仓库的 GitHub issues / PR 从拉取、分诊、实现、审查推进到回写关闭的五阶段流水线——同类只做单段，这条从头铺到尾，还带一份评审反馈落实模式。**
 
-[看效果](#效果示例) · [安装](#快速开始) · [触发方式](#触发方式) · [它和同类有什么不同](#它和同类有什么不同) · [安全边界](#安全边界)
+[流程一览](#流程一览) · [看效果](#效果示例) · [安装](#快速开始) · [触发方式](#触发方式) · [它和同类有什么不同](#它和同类有什么不同) · [安全边界](#安全边界)
 
 </div>
 
@@ -25,6 +25,22 @@
 普通做法是每次现场发挥：能修，但质量看心情，纪律不积累。同类 skill 解决了其中一段——分诊的、审查的、自动修的——段与段之间还是靠你人肉缝。
 
 这个 skill 把整条河铺完：**拉取同步 → 分诊验证 → 认领实现 → 双轴审查 → 回写 GitHub**，五段各带完成标准；另有一份同行没有的 **PR 评审反馈落实模式**——维护者意见即规格，逐条落实、双轴核验、以你的账号身份回帖。
+
+## 流程一览
+
+<p align="center">
+  <img src="docs/assets/pipeline-live.gif" width="100%" alt="五阶段流水线动态面板">
+</p>
+
+<sub>动态面板：阶段状态、双轴核验、on-call 安全边界触发同屏推进，动画计数为示意。可交互版本：<a href="docs/assets/pipeline-live.html">pipeline-live.html</a>（浏览器直接打开，录制脚本 <a href="docs/assets/capture-live.mjs">capture-live.mjs</a> 可复现）。</sub>
+
+<p align="center">
+  <img src="docs/assets/pipeline-workflow.png" width="100%" alt="五阶段工作流架构图">
+</p>
+
+<sub>工作流架构图由 archify 从仓库真实内容生成，节点带源码引用：<a href="docs/assets/pipeline-workflow.html">交互版 pipeline-workflow.html</a>。</sub>
+
+---
 
 ## 效果示例
 
@@ -94,8 +110,14 @@ gh skill install qikairo7/issue-pipeline
 ```text
 ├── README.md                        ← 本文件
 ├── LICENSE                          ← MIT
+├── CONTRIBUTING.md                  ← 贡献流程
 ├── .claude-plugin/marketplace.json  ← Claude Code plugin marketplace 双通道
 ├── scripts/check.sh                 ← clone 后一条命令自检（规范+引用+限额）
+├── docs/assets/                     ← 视觉资产与录制脚本
+│   ├── pipeline-live.gif/.html      ← 五阶段动态面板（GIF 内嵌 / HTML 交互）
+│   ├── pipeline-live.config.json    ← 面板配置（live-panel）
+│   ├── capture-live.mjs            ← 出帧脚本（可复现 GIF）
+│   └── pipeline-workflow.png/.html  ← 工作流架构图（静态 / archify 交互版）
 └── skills/issue-pipeline/
     ├── SKILL.md                     ← 五阶段流水线正文（含 PR 模式路由）
     ├── references/

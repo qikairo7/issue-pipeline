@@ -1,0 +1,922 @@
+{
+  "meta": {
+    "title": "issue-pipeline live panel",
+    "lang": "zh-CN"
+  },
+  "canvas": {
+    "width": 1600,
+    "height": 900,
+    "duration": 12,
+    "fps": 12,
+    "preroll": 8
+  },
+  "theme": {
+    "preset": "terminal-dark",
+    "font": "\"JetBrains Mono\",\"IBM Plex Mono\",\"Noto Sans Mono CJK SC\",monospace",
+    "fontSize": 20,
+    "lineHeight": 28,
+    "colors": {
+      "bg": "#1a1e26",
+      "bar": "#232833",
+      "line": "#4a5367",
+      "line2": "#3a4154",
+      "dim": "#6f788c",
+      "fg": "#e4e8f0",
+      "wh": "#ffffff",
+      "cy": "#86e1e6",
+      "cyd": "#4f8f96",
+      "bl": "#8fb4f6",
+      "gr": "#86e0a2",
+      "pu": "#b9a2f2",
+      "ye": "#e3c07a",
+      "ro": "#e08f8f",
+      "hl": "#2e2c47",
+      "row": "#22323a",
+      "none": "transparent",
+      "dots": "#566078"
+    }
+  },
+  "clock": {
+    "start": "00:00:08",
+    "rate": 1
+  },
+  "titlebar": {
+    "text": "~/issue-pipeline — 五阶段流水线 — 158x44"
+  },
+  "credit": {
+    "text": "流程出自 qikairo7/issue-pipeline v2.1.0 · 计数为示意 (illustrative) · motion after @thedelost",
+    "y": 884,
+    "size": 14
+  },
+  "machines": {
+    "sync": {
+      "type": "lane",
+      "period": 8.5,
+      "run": 5.2,
+      "off": 0.3,
+      "busy": "拉取清单",
+      "done": [
+        "清单已落地",
+        "缺依赖降级"
+      ],
+      "log": {
+        "who": "同步",
+        "c": "cy",
+        "msgs": [
+          [
+            "issues 拉到本地",
+            "31 条"
+          ],
+          [
+            "缺依赖走 MCP 读",
+            "5 条"
+          ]
+        ]
+      }
+    },
+    "triage": {
+      "type": "lane",
+      "period": 9.5,
+      "run": 6.4,
+      "off": 0.9,
+      "busy": "查重 + 复现",
+      "done": [
+        "ready-for-agent",
+        "needs-info"
+      ],
+      "log": {
+        "who": "分诊",
+        "c": "bl",
+        "msgs": [
+          [
+            "查重：按领域概念搜码",
+            "已实现→关"
+          ],
+          [
+            "复现：按步骤跑",
+            "不了→needs-info"
+          ]
+        ]
+      }
+    },
+    "implement": {
+      "type": "lane",
+      "period": 10.5,
+      "run": 7.6,
+      "off": 0.5,
+      "busy": "最简实现",
+      "done": [
+        "变更过门",
+        "基线复跑绿"
+      ],
+      "log": {
+        "who": "实现",
+        "c": "gr",
+        "msgs": [
+          [
+            "按类型加载 skill",
+            "最简可行"
+          ],
+          [
+            "变更过验证门",
+            "全绿"
+          ]
+        ]
+      }
+    },
+    "review": {
+      "type": "lane",
+      "period": 9,
+      "run": 5.8,
+      "off": 0.2,
+      "busy": "双轴审查",
+      "done": [
+        "两轴通过",
+        "缺陷已复验"
+      ],
+      "log": {
+        "who": "审查",
+        "c": "pu",
+        "msgs": [
+          [
+            "Spec 轴比对",
+            "意见即规格"
+          ],
+          [
+            "Standards 轴比对",
+            "仓库规范"
+          ]
+        ]
+      }
+    },
+    "writeback": {
+      "type": "lane",
+      "period": 8,
+      "run": 4.6,
+      "off": 0.7,
+      "busy": "作者声线回帖",
+      "done": [
+        "状态已更新",
+        "证据带链接"
+      ],
+      "log": {
+        "who": "回写",
+        "c": "ye",
+        "msgs": [
+          [
+            "回帖附证据",
+            "测试+链接"
+          ],
+          [
+            "状态已更新",
+            "closed"
+          ]
+        ]
+      }
+    },
+    "prmode": {
+      "type": "cycle",
+      "period": 4.5,
+      "t0": 0.8,
+      "values": [
+        {
+          "t": "① 意见即规格",
+          "m": "逐条摘修改点 · 没点名不动"
+        },
+        {
+          "t": "② 基线复跑",
+          "m": "先复现声称的证据"
+        },
+        {
+          "t": "③ 并入单 commit",
+          "m": "评审历史保持可读"
+        }
+      ],
+      "log": {
+        "who": "PR模式",
+        "c": "bl"
+      }
+    },
+    "specaxis": {
+      "type": "gauge",
+      "period": 4.2,
+      "t0": 1.1,
+      "seed": 7,
+      "values": [
+        0.86,
+        0.91,
+        0.94,
+        0.88,
+        0.96,
+        0.9
+      ],
+      "decimals": 2,
+      "threshold": 0.9,
+      "high": {
+        "label": "两轴通过",
+        "dest": "→ 进入回写"
+      },
+      "low": {
+        "label": "有一轴不过",
+        "dest": "→ 回炉重刨"
+      },
+      "log": {
+        "who": "双轴",
+        "c": "pu",
+        "msgs": [
+          "Spec 轴比对完成",
+          "Standards 轴比对完成"
+        ],
+        "tail": "p={value} {label}"
+      }
+    },
+    "oncall": {
+      "type": "triggers",
+      "color": "ye",
+      "period": 4.5,
+      "on": 3,
+      "t0": 0.5,
+      "callsStart": 2,
+      "onText": "触发中",
+      "offText": "待命",
+      "items": [
+        {
+          "name": "复现不了",
+          "adv": [
+            "» 停在 needs-info",
+            "» 回帖提可操作问题"
+          ],
+          "to": "→ 分诊"
+        },
+        {
+          "name": "CI 转红",
+          "adv": [
+            "» 读日志定位",
+            "» 修复复验再回帖"
+          ],
+          "to": "→ 实现"
+        },
+        {
+          "name": "外发授权",
+          "adv": [
+            "» 评论/关闭/push 先请示",
+            "» 被拒即停不绕路"
+          ],
+          "to": "→ 回写"
+        }
+      ],
+      "log": {
+        "who": "oncall",
+        "c": "ye",
+        "start": {
+          "m": "{name} · 触发，走安全边界",
+          "g": "处理中"
+        },
+        "end": {
+          "m": "{name} · 已按边界处置",
+          "g": "{to}"
+        }
+      }
+    }
+  },
+  "elements": [
+    {
+      "type": "text",
+      "x": 60,
+      "y": 96,
+      "align": "left",
+      "runs": [
+        {
+          "t": "主流程",
+          "c": "cy",
+          "b": true
+        },
+        {
+          "t": "  每阶段带完成标准",
+          "c": "dim"
+        }
+      ]
+    },
+    {
+      "type": "box",
+      "x": 60,
+      "y": 128,
+      "w": 470,
+      "h": 96,
+      "color": "cyd",
+      "align": "left",
+      "pad": [
+        14,
+        16
+      ],
+      "lines": [
+        {
+          "runs": [
+            {
+              "t": "1 同步 ",
+              "c": "cy",
+              "b": true
+            },
+            {
+              "t": "{sync}",
+              "v": "sync"
+            }
+          ],
+          "when": [
+            {
+              "var": "sync.state",
+              "eq": "busy"
+            }
+          ],
+          "then": {
+            "c": "wh"
+          }
+        },
+        {
+          "runs": [
+            {
+              "t": "{sync.state}",
+              "v": "sync.state",
+              "c": "dim"
+            },
+            {
+              "t": " · gh-issue-sync / MCP",
+              "c": "dim"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "flow",
+      "path": [
+        [
+          295,
+          224
+        ],
+        [
+          295,
+          258
+        ]
+      ],
+      "period": 1.6,
+      "offsets": [
+        0,
+        0.8
+      ],
+      "color": "cy"
+    },
+    {
+      "type": "box",
+      "x": 60,
+      "y": 258,
+      "w": 470,
+      "h": 96,
+      "color": "bl",
+      "align": "left",
+      "pad": [
+        14,
+        16
+      ],
+      "lines": [
+        {
+          "runs": [
+            {
+              "t": "2 分诊 ",
+              "c": "bl",
+              "b": true
+            },
+            {
+              "t": "{triage}",
+              "v": "triage"
+            }
+          ]
+        },
+        {
+          "runs": [
+            {
+              "t": "{triage.state}",
+              "v": "triage.state",
+              "c": "dim"
+            },
+            {
+              "t": " · 四态判定",
+              "c": "dim"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "flow",
+      "path": [
+        [
+          295,
+          354
+        ],
+        [
+          295,
+          388
+        ]
+      ],
+      "period": 2.1,
+      "offsets": [
+        0.3
+      ],
+      "color": "bl"
+    },
+    {
+      "type": "box",
+      "x": 60,
+      "y": 388,
+      "w": 470,
+      "h": 96,
+      "color": "gr",
+      "align": "left",
+      "pad": [
+        14,
+        16
+      ],
+      "lines": [
+        {
+          "runs": [
+            {
+              "t": "3 实现 ",
+              "c": "gr",
+              "b": true
+            },
+            {
+              "t": "{implement}",
+              "v": "implement"
+            }
+          ]
+        },
+        {
+          "runs": [
+            {
+              "t": "{implement.state}",
+              "v": "implement.state",
+              "c": "dim"
+            },
+            {
+              "t": " · 最简可行 · 按类型加载 skill",
+              "c": "dim"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "flow",
+      "path": [
+        [
+          295,
+          484
+        ],
+        [
+          295,
+          518
+        ]
+      ],
+      "period": 1.8,
+      "offsets": [
+        0.1,
+        0.9
+      ],
+      "color": "gr"
+    },
+    {
+      "type": "box",
+      "x": 60,
+      "y": 518,
+      "w": 470,
+      "h": 96,
+      "color": "pu",
+      "align": "left",
+      "pad": [
+        14,
+        16
+      ],
+      "lines": [
+        {
+          "runs": [
+            {
+              "t": "4 双轴审查 ",
+              "c": "pu",
+              "b": true
+            },
+            {
+              "t": "{review}",
+              "v": "review"
+            }
+          ]
+        },
+        {
+          "runs": [
+            {
+              "t": "{review.state}",
+              "v": "review.state",
+              "c": "dim"
+            },
+            {
+              "t": " · Spec=issue/评审意见 · Standards=仓库规范",
+              "c": "dim",
+              "size": 16
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "flow",
+      "path": [
+        [
+          295,
+          614
+        ],
+        [
+          295,
+          648
+        ]
+      ],
+      "period": 2.4,
+      "offsets": [
+        0.5
+      ],
+      "color": "pu"
+    },
+    {
+      "type": "box",
+      "x": 60,
+      "y": 648,
+      "w": 470,
+      "h": 96,
+      "color": "ye",
+      "align": "left",
+      "pad": [
+        14,
+        16
+      ],
+      "lines": [
+        {
+          "runs": [
+            {
+              "t": "5 回写 ",
+              "c": "ye",
+              "b": true
+            },
+            {
+              "t": "{writeback}",
+              "v": "writeback"
+            }
+          ]
+        },
+        {
+          "runs": [
+            {
+              "t": "{writeback.state}",
+              "v": "writeback.state",
+              "c": "dim"
+            },
+            {
+              "t": " · 作者声线 · 证据给数字",
+              "c": "dim"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "x": 620,
+      "y": 96,
+      "align": "left",
+      "runs": [
+        {
+          "t": "PR 评审反馈模式",
+          "c": "bl",
+          "b": true
+        },
+        {
+          "t": "  同行没有的一段",
+          "c": "dim"
+        }
+      ]
+    },
+    {
+      "type": "box",
+      "x": 620,
+      "y": 128,
+      "w": 430,
+      "h": 150,
+      "color": "bl",
+      "align": "left",
+      "pad": [
+        14,
+        16
+      ],
+      "lines": [
+        {
+          "runs": [
+            {
+              "t": "{prmode.t}",
+              "v": "prmode.t",
+              "b": true
+            }
+          ]
+        },
+        {
+          "runs": [
+            {
+              "t": "{prmode.m}",
+              "v": "prmode.m",
+              "c": "dim"
+            }
+          ]
+        },
+        {
+          "runs": [
+            {
+              "t": "get_me 判身份：作者落实 · 维护者核验 · 第三方只评",
+              "c": "dim",
+              "size": 16
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "flow",
+      "path": [
+        [
+          835,
+          278
+        ],
+        [
+          835,
+          312
+        ]
+      ],
+      "period": 1.5,
+      "offsets": [
+        0.2,
+        0.95
+      ],
+      "color": "bl"
+    },
+    {
+      "type": "box",
+      "x": 620,
+      "y": 312,
+      "w": 430,
+      "h": 170,
+      "color": "pu",
+      "align": "left",
+      "pad": [
+        14,
+        16
+      ],
+      "lines": [
+        {
+          "runs": [
+            {
+              "t": "双轴核验 ",
+              "c": "pu",
+              "b": true
+            },
+            {
+              "v": "specaxis.num",
+              "b": true
+            }
+          ]
+        },
+        {
+          "items": [
+            {
+              "bar": {
+                "h": 10,
+                "gauge": "specaxis"
+              },
+              "grow": 1
+            }
+          ]
+        },
+        {
+          "runs": [
+            {
+              "v": "specaxis.label"
+            },
+            {
+              "t": "  "
+            },
+            {
+              "v": "specaxis.dest",
+              "c": "dim"
+            }
+          ]
+        },
+        {
+          "runs": [
+            {
+              "t": "审查揪出缺陷 → 修复并复验才放行",
+              "c": "dim",
+              "size": 16
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "flow",
+      "path": [
+        [
+          835,
+          482
+        ],
+        [
+          835,
+          516
+        ]
+      ],
+      "period": 2,
+      "offsets": [
+        0.6
+      ],
+      "color": "pu"
+    },
+    {
+      "type": "box",
+      "x": 620,
+      "y": 516,
+      "w": 430,
+      "h": 110,
+      "color": "line",
+      "align": "left",
+      "pad": [
+        14,
+        16
+      ],
+      "lines": [
+        {
+          "runs": [
+            {
+              "t": "处理台账",
+              "c": "fg",
+              "b": true
+            },
+            {
+              "t": "  (示意)",
+              "c": "dim",
+              "size": 16
+            }
+          ]
+        },
+        {
+          "runs": [
+            {
+              "t": "已消化条目 ",
+              "c": "dim"
+            },
+            {
+              "t": "{oncall.calls}",
+              "v": "oncall.calls",
+              "c": "ye",
+              "b": true
+            },
+            {
+              "t": "  ·  流转包 ",
+              "c": "dim"
+            },
+            {
+              "t": "{packets}",
+              "c": "cy",
+              "b": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "x": 1130,
+      "y": 96,
+      "align": "left",
+      "runs": [
+        {
+          "t": "on call · 安全边界",
+          "c": "ye",
+          "b": true
+        },
+        {
+          "t": "  {oncall.status}",
+          "v": "oncall.status",
+          "c": "dim"
+        }
+      ]
+    },
+    {
+      "type": "box",
+      "x": 1130,
+      "y": 128,
+      "w": 420,
+      "h": 252,
+      "color": "ye",
+      "align": "left",
+      "pad": [
+        14,
+        16
+      ],
+      "lines": [
+        {
+          "trigger": [
+            "oncall",
+            0
+          ]
+        },
+        {
+          "trigger": [
+            "oncall",
+            1
+          ]
+        },
+        {
+          "trigger": [
+            "oncall",
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "type": "box",
+      "x": 1130,
+      "y": 420,
+      "w": 420,
+      "h": 130,
+      "color": "line2",
+      "align": "left",
+      "pad": [
+        14,
+        16
+      ],
+      "lines": [
+        {
+          "runs": [
+            {
+              "t": "最近一次边界动作",
+              "c": "fg",
+              "b": true
+            }
+          ]
+        },
+        {
+          "runs": [
+            {
+              "t": "{oncall.adv0}",
+              "v": "oncall.adv0",
+              "c": "ye"
+            }
+          ]
+        },
+        {
+          "runs": [
+            {
+              "t": "{oncall.adv1}",
+              "v": "oncall.adv1",
+              "c": "dim"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "log",
+      "x": 620,
+      "y": 680,
+      "w": 930,
+      "rows": 4,
+      "padTop": 14,
+      "padBottom": 10,
+      "padLeft": 16,
+      "title": "log",
+      "cols": [
+        {
+          "key": "time",
+          "x": 16
+        },
+        {
+          "key": "who",
+          "x": 110
+        },
+        {
+          "key": "m",
+          "x": 250
+        },
+        {
+          "key": "g",
+          "x": 780
+        }
+      ]
+    }
+  ]
+}
