@@ -18,7 +18,9 @@
 
 ---
 
-![真实安装与自检回放](assets/demo-install.png)
+<p align="center">
+  <img src="assets/demo-install.png" width="100%" alt="真实安装与自检回放">
+</p>
 
 <sub>真实运行回放：公网 `npx skills add` 安装 → `git clone` → `bash scripts/check.sh`，6 项自检全过。非演示数据。</sub>
 
@@ -64,6 +66,8 @@ gh skill install qikairo7/issue-pipeline
 用 issue-pipeline 处理 https://github.com/<owner>/<repo>/pull/<编号>
 ```
 
+预期：Agent 先判定目标形态与你的身份（PR 作者 / 维护者 / 第三方），报告判定结果，再进入对应阶段的流水线。
+
 ## 触发方式
 
 - 「用 issue-pipeline 处理这个 PR」
@@ -77,7 +81,7 @@ gh skill install qikairo7/issue-pipeline
 
 ## 它和同类有什么不同
 
-| 维度 | 同类做法 | issue-pipeline |
+| 维度 | 同类做法 | **issue-pipeline** |
 |---|---|---|
 | 覆盖范围 | 单段：分诊（[github-triage](https://www.skills.sh/trailofbits/skills/github-triage)、[triage](https://www.skills.sh/mattpocock/skills/triage)）或审查（Tessl pr 类）或自动修复（[github-issue-resolver](https://clawhub.ai/ashwinhegde19/skills/github-issue-resolver)） | 拉取→分诊→实现→审查→回写全流程，段间有完成标准 |
 | 评审反馈 | 无此段 | **意见即规格**：逐条落实、没点名不动、修订单 commit、正文随范围收窄同步更新 |
@@ -124,6 +128,10 @@ bash scripts/check.sh
 - MCP 分发核对方法：[modelcontextprotocol/ext-skills](https://github.com/modelcontextprotocol/ext-skills)
 - 仓库结构参考：[anthropics/skills](https://github.com/anthropics/skills)
 
+## 贡献
+
+issue 与 PR 欢迎，流程见 [CONTRIBUTING.md](./CONTRIBUTING.md)：一次提交改一个面，`bash scripts/check.sh` 全过再推。
+
 ## License
 
-[MIT](LICENSE)
+本项目基于 [MIT License](./LICENSE) 授权。

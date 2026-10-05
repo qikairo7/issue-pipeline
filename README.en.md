@@ -18,7 +18,9 @@
 
 ---
 
-![Real install & self-check run](assets/demo-install.png)
+<p align="center">
+  <img src="assets/demo-install.png" width="100%" alt="Real install & self-check run">
+</p>
 
 <sub>A real run, not a mock: public `npx skills add` install → `git clone` → `bash scripts/check.sh`, six checks green.</sub>
 
@@ -65,6 +67,8 @@ Then say to your agent:
 Process https://github.com/<owner>/<repo>/pull/<number> with issue-pipeline
 ```
 
+Expected: the agent first determines the target form and your identity (PR author / maintainer / third party), reports that verdict, then enters the matching stage of the pipeline.
+
 ## Triggers
 
 - "Process this PR with issue-pipeline"
@@ -78,7 +82,7 @@ Not triggered by: read-only questions (checking a version, reading one issue) �
 
 ## How it differs from peers
 
-| Dimension | Peers | issue-pipeline |
+| Dimension | Peers | **issue-pipeline** |
 |---|---|---|
 | Coverage | One segment: triage ([github-triage](https://www.skills.sh/trailofbits/skills/github-triage), [triage](https://www.skills.sh/mattpocock/skills/triage)) or review (Tessl PR skills) or auto-fix ([github-issue-resolver](https://clawhub.ai/ashwinhegde19/skills/github-issue-resolver)) | Pull → triage → implement → review → write-back, with a completion bar between stages |
 | Review feedback | Absent | **Comments are the spec**: item by item, untouched what wasn't named, single revision commit, PR body narrowed to match |
@@ -125,6 +129,10 @@ Covers: skills-ref spec validation (when available), referenced-file existence, 
 - MCP distribution checks: [modelcontextprotocol/ext-skills](https://github.com/modelcontextprotocol/ext-skills)
 - Repo layout reference: [anthropics/skills](https://github.com/anthropics/skills)
 
+## Contributing
+
+Issues and PRs welcome — see [CONTRIBUTING.md](./CONTRIBUTING.md): one facet per commit, `bash scripts/check.sh` green before you push.
+
 ## License
 
-[MIT](LICENSE)
+This project is licensed under the [MIT License](./LICENSE).
