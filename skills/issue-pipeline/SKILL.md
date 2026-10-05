@@ -2,6 +2,7 @@
 name: issue-pipeline
 description: GitHub issues / PR 处理流水线：拉取同步、分诊验证、认领实现、审查回写。适用于用户要求处理某个仓库的 issues 或 PR、落实 PR 评审意见、认领或修复某个 issue，或把条目拉到本地改完再推回 GitHub。
 compatibility: 需 gh 已登录；批量同步需 gh-issue-sync 在 PATH；代码定位可选 codegraph；缺依赖时读操作可改走 github-issues 的 MCP 工具。
+license: MIT
 metadata:
   version: "2.1"
 ---
