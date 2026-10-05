@@ -18,14 +18,6 @@
 
 ---
 
-<p align="center">
-  <img src="assets/demo-install.png" width="100%" alt="Real install & self-check run">
-</p>
-
-<sub>A real run, not a mock: public `npx skills add` install → `git clone` → `bash scripts/check.sh`, six checks green.</sub>
-
----
-
 ## The problem it solves
 
 Here's the thing: you take over an open-source repo. Thirty-odd open issues, reviewer feedback sitting in PRs, CI quietly turning red three days later. Every time you process one, you re-invent the flow — what to look at first? Whose bug is it if it won't reproduce? Do I take every review comment? How do I reply without sounding like a bot?

@@ -18,14 +18,6 @@
 
 ---
 
-<p align="center">
-  <img src="assets/demo-install.png" width="100%" alt="真实安装与自检回放">
-</p>
-
-<sub>真实运行回放：公网 `npx skills add` 安装 → `git clone` → `bash scripts/check.sh`，6 项自检全过。非演示数据。</sub>
-
----
-
 ## 它解决什么问题
 
 事情是这样的：你接手一个开源仓库，open issues 三十几条，PR 里躺着维护者的评审意见，三天后 CI 悄悄转红。每次处理都得重新想一遍——先看什么？复现不了算谁的？评审意见要不要全听？回帖怎么写不像机器人？
