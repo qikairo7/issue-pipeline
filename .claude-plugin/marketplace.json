@@ -1,0 +1,14 @@
+{
+  "name": "issue-pipeline",
+  "owner": { "name": "qikairo7", "url": "https://github.com/qikairo7" },
+  "metadata": { "description": "issue-pipeline — GitHub issues/PR 全流程处理流水线技能", "version": "1.0.0" },
+  "plugins": [
+    {
+      "name": "issue-pipeline",
+      "description": "GitHub issues/PR 处理流水线：拉取同步、分诊验证、认领实现、审查回写，含 PR 评审反馈落实模式。",
+      "source": "./",
+      "strict": false,
+      "skills": ["./skills/issue-pipeline"]
+    }
+  ]
+}
